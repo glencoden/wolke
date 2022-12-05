@@ -21,6 +21,7 @@ jobs:
           git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
       - name: run docker
         run: |
+          pwd
           docker-compose down --rmi local
           docker image prune -f
           docker-compose up -d --build
