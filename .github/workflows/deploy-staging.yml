@@ -13,15 +13,12 @@ jobs:
           echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-      - name: pull wolke repository
+      - name: pull wolke repository and run docker
         run: |
           ssh root@${{ secrets.SERVER_ADDRESS }} <<"ENDSSH"
           mkdir -p /root/apps/wolke
           cd /root/apps/wolke
           git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
-      - name: run docker
-        run: |
-          pwd
           docker-compose down --rmi local
           docker image prune -f
           docker-compose up -d --build
