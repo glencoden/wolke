@@ -18,7 +18,7 @@ jobs:
           ssh root@${{ secrets.SERVER_ADDRESS }} <<"ENDSSH"
           mkdir -p /root/apps/wolke
           cd /root/apps/wolke
-          git pull || git clone git@gitlab.com:GlenCoden/wolke.git ./
+          git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
       - name: run docker
         run: |
           docker-compose down --rmi local
