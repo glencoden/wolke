@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - staging
+      - main
 
 jobs:
   deploy-staging:
@@ -15,10 +15,10 @@ jobs:
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
       - name: pull wolke repository and run docker
         run: |
-          ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
+          ssh root@${{ secrets.SERVER_ADDRESS_PROD }} <<"ENDSSH"
           mkdir -p /root/apps/wolke
           cd /root/apps/wolke
-          git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
+          git pull || git clone -b main --single-branch git@github.com:glencoden/wolke.git ./
           docker compose down --rmi local
           docker image prune -f
           docker compose up -d --build
