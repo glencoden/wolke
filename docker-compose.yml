@@ -1,0 +1,13 @@
+version: "3.6"
+
+services:
+  tsc-app:
+    build:
+      context: contexts/tsc
+    volumes:
+      - ./test:/usr/src/app
+    environment:
+      NODE_ENV: production
+    ports:
+      - "80:3000"
+    container_name: tsc
