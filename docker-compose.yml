@@ -1,4 +1,4 @@
-version: "3.6"
+version: "3.9"
 
 volumes:
   certs:
@@ -13,7 +13,7 @@ services:
     build:
       context: contexts/tsc
     volumes:
-      - ./test:/usr/src/app
+      - ${STATIC_DIR}/tsc/build:/usr/src/app/build
     environment:
       NODE_ENV: production
       VIRTUAL_HOST: "${HOST_TSC}"
@@ -33,7 +33,7 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
 
   adminer:
-    image: adminer:4.7.7
+    image: adminer:4.8.1
     container_name: postgres-adminer
     restart: always
     ports:

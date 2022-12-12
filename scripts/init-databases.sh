@@ -6,7 +6,7 @@ set -e
 # Check if the .env file exists
 if test -e .env; then
   # Export the environment variables from the .env file
-  export "$(grep -v '^#' .env | xargs)"
+  export $(grep -v '^#' .env | xargs)
 fi
 
 # create an empty array
