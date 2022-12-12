@@ -14,19 +14,12 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
       - name: pull wolke repository and run docker
-        env:
-          SSL_EMAIL: ${{ secrets.SSL_EMAIL }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_DATABASE_CARDS: ${{ secrets.POSTGRES_DATABASE_CARDS }}
-          POSTGRES_DATABASE_TSC: ${{ secrets.POSTGRES_DATABASE_TSC }}
-          HOST_CARDS: ${{ secrets.HOST_CARDS }}
-          HOST_TSC: ${{ secrets.HOST_TSC }}
         run: |
           ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
           mkdir -p /root/apps/wolke
           cd /root/apps/wolke
           git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
+          echo ${{ secrets.ENV_FILE }} > .env
           docker compose down --rmi local
           docker image prune -f
           docker compose up -d --build
