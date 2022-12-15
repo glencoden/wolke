@@ -2,7 +2,13 @@ FROM node:16
 
 WORKDIR /usr/src/app
 
-RUN npm install pm2 -g
+# This is set in scripts/set-cache-time.sh before docker compose, to disable caching after this line
+ARG CACHE_TIME=1671141691
 
-EXPOSE 3200
-CMD [ "pm2", "serve", "./build", "3200", "--no-daemon" ]
+RUN git clone -b develop --single-branch https://github.com/glencoden/tsc-api.git .
+
+RUN npm install
+
+EXPOSE 5555
+
+CMD [ "npm", "run", "start:prod" ]
