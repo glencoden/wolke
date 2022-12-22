@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "docker cloud",
     "scripts": {
-        "start": "bash scripts/set-cache-time.sh && docker compose up -d --build && bash scripts/init-databases.sh",
+        "start": "bash contexts/tsc/scripts/validate-cache.sh && docker compose up -d --build && bash scripts/init-databases.sh",
         "stop": "docker-compose down --rmi local && docker image prune -f",
         "restart": "npm stop && npm start"
     },
