@@ -24,4 +24,5 @@ jobs:
           docker compose down --rmi local
           docker image prune -f
           docker compose up -d --build
+          npm run init-databases
           ENDSSH
