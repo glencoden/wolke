@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# enable err exit mode
-set -e
-
 # check if the .env file exists
 if test -e .env; then
   # Export the environment variables from the .env file
