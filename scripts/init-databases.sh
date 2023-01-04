@@ -3,10 +3,10 @@
 # enable err exit mode
 set -e
 
-# Check if the .env file exists
+# check if the .env file exists
 if test -e .env; then
-  # Export the environment variables from the .env file
-  export "$(grep -v '^#' .env | xargs)"
+  # export the environment variables from the .env file
+  export $(grep -v '^#' .env | xargs)
 fi
 
 # create an empty array
@@ -24,7 +24,7 @@ for db_name in "${db_names[@]}"
 do
   # check if the database exists
   if docker exec -e PGPASSWORD="$POSTGRES_PASSWORD" postgres-database psql -U "$POSTGRES_USER" -lqt | cut -d \| -f 1 | grep -wq "$db_name"; then
-    # the database exists, skip the iteration
+    # if the database exists, skip the iteration
     continue
   fi
 
