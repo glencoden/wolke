@@ -46,6 +46,9 @@ mkdir temp-pg-backups
     git checkout "$commit"
   fi
 
+  # copy backups into docker db container
+  docker cp . postgres-database:/backups
+
   # function which restores the postgres database from remote backup
   function restoreDatabase() {
     echo "RESTORE DATABASE $1"
