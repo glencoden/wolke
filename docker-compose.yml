@@ -14,9 +14,8 @@ services:
       context: contexts/tsc
     restart: always
     volumes:
-      - ${STATIC_DIR}/tsc/${BUILD_DIR}:/usr/src/app/static
+      - ${STATIC_DIR}/tsc/build:/usr/src/app/static
     environment:
-      NODE_ENV: production
       VIRTUAL_HOST: ${HOST_TSC}
       LETSENCRYPT_HOST: ${HOST_TSC}
       API_DB_NAME: ${POSTGRES_DATABASE_TSC}
@@ -26,6 +25,7 @@ services:
       DB_HOST: db
       ADMIN_USERNAME: ${ADMIN_USERNAME}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      REMOTE_BRANCH: ${BRANCH_TSC_API}
     ports:
       - "3200:5555"
     container_name: tsc

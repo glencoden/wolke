@@ -11,7 +11,7 @@ git_exit_status=$?
 
 if [ $git_exit_status -eq 0 ]; then
   echo "git command succeeded"
-  sed -i "" -e "6s/.*/ARG COMMIT_HASH=$commit_hash/" contexts/tsc/Dockerfile
+  sed -i "" -e "5s/.*/ARG COMMIT_HASH=$commit_hash/" contexts/tsc/Dockerfile
 else
   echo "git command failed"
 fi

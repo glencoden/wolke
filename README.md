@@ -2,7 +2,7 @@
 
 ### databases
 
-npm run restore db=my-service env=develop commit=05657560fa3dd55c2c528b5134f6358bca3dc693
+npm run db:restore db=name env=develop commit=05657560fa3dd55c2c528b5134f6358bca3dc693
 
 # New projects
 
@@ -10,39 +10,21 @@ npm run restore db=my-service env=develop commit=05657560fa3dd55c2c528b5134f6358
 
 ## Frontend
 
+<br/>
+
 ### Static deploy
 
-ON WOLKE - add context and service
+<br/>
 
-Dockerfile example `contexts/my-app/Dockerfile`
-
-```dockerfile
-FROM node:16
-
-WORKDIR /usr/src/app
-
-ENV PUBLIC_URL="/"
-
-RUN npm install pm2 -g
-
-EXPOSE 3000
-
-CMD [ "pm2", "serve", ".", "3000", "--no-daemon" ]
-```
-
-Service example `docker-compose.yml`
-
-```yaml
-
-```
-
-ON PROJECT GITHUB - add repository secrets
+IN PROJECT GITHUB add repository secrets
 
 `SERVER_ADDRESS`: IP address of target server
 <br/>
 `SSH_PRIVATE_KEY`: Private key from machine used for server setup
 
-IN PROJECT - add github workflow
+<br/>
+
+IN PROJECT add github workflow
 
 Workflow example `.github/workflows/deploy-to-wolke.yml`
 
@@ -81,3 +63,57 @@ jobs:
           cd build/
           scp -r * root@${{ secrets.SERVER_ADDRESS }}:/root/apps/tsc/
 ```
+
+<br/>
+
+IN WOLKE add env vars, context and service
+
+Host environment variable example `.env` | `.env.staging` | `.env.prod`
+
+```dotenv
+# Hosts
+HOST_TSC=tsc.glencoden.io
+```
+
+Make sure `STATIC_DIR` points to where your app is `.env` | `.env.live`
+
+```dotenv
+STATIC_DIR=..
+```
+
+Dockerfile example `contexts/my-app/Dockerfile`
+
+```dockerfile
+FROM node:16
+
+WORKDIR /usr/src/app
+
+ENV PUBLIC_URL="/"
+
+RUN npm install pm2 -g
+
+EXPOSE 3000
+
+CMD [ "pm2", "serve", ".", "3000", "--no-daemon" ]
+```
+
+Service example `docker-compose.yml`
+
+```yaml
+services:
+  tsc:
+    build:
+      context: contexts/tsc
+    volumes:
+      - ${STATIC_DIR}/tsc/${BUILD_DIR}:/usr/src/app
+    environment:
+      NODE_ENV: production
+      VIRTUAL_HOST: "${HOST_TSC}"
+      LETSENCRYPT_HOST: "${HOST_TSC}"
+    ports:
+      - "3000:3000"
+    container_name: tsc
+
+```
+
+<br/>
