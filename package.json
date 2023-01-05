@@ -4,7 +4,7 @@
     "description": "docker cloud",
     "scripts": {
         "start": "bash contexts/tsc/scripts/validate-cache.sh && docker compose up -d --build",
-        "stop": "docker-compose down --rmi local && docker image prune -f",
+        "stop": "docker compose down --rmi local && docker image prune -f",
         "restart": "npm stop && npm start",
         "init-databases": "bash scripts/init-databases.sh",
         "backup-databases": "bash scripts/backup-databases.sh",
