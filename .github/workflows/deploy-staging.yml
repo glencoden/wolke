@@ -22,7 +22,6 @@ jobs:
           echo "${{ secrets.ENV_LIVE }}" > .env
           echo "${{ secrets.ENV_STAGING }}" > .env.staging
           cat .env.staging >> .env
-          bash contexts/tsc/scripts/validate-cache.sh
           docker compose down --rmi local
           docker image prune -f
           docker compose up -d --build
@@ -33,5 +32,6 @@ jobs:
       - name: init and remove databases as listed in .env
         run: |
           ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
+          which xargs
           bash /root/apps/wolke/scripts/init-databases.sh
           ENDSSH

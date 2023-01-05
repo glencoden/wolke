@@ -1,6 +1,5 @@
 # Fetch remote commit info
-git_response=$(git ls-remote https://github.com/glencoden/tsc-api.git | egrep 'develop')
-# git_response=$(git ls-remote https://github.com/glencoden/happa.git | egrep 'main|merge')
+ git_response=$(git ls-remote https://github.com/glencoden/happa.git | egrep 'main|merge')
 
 # Parse for commit hash
 parsed_response=$(echo "$git_response" | tr '\t' ' ')
@@ -10,8 +9,7 @@ commit_hash=$(echo "$parsed_response" | cut -d' ' -f1)
 git_exit_status=$?
 
 if [ $git_exit_status -eq 0 ]; then
-  pwd
-  sed -i "" -e "5s/.*/ARG COMMIT_HASH=$commit_hash/" /contexts/tsc/Dockerfile
+  sed -i "" -e "5s/.*/ARG COMMIT_HASH=$commit_hash/" contexts/tsc/Dockerfile
 else
   echo "git command failed"
 fi
