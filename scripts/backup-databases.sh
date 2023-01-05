@@ -6,7 +6,13 @@ if test -e .env; then
   export $(grep -v '^#' .env | xargs)
 fi
 
-echo "one"
+pwd
+
+if test -e .env; then
+  echo ".env file found"
+else
+  echo ".env file not found"
+fi
 
 for env_var in $(env)
 do
@@ -30,13 +36,6 @@ mkdir temp-pg-backups
 
   # clone remote backup remote
   git clone git@github.com:glencoden/wolke-db-backups.git .
-
-  echo "two"
-
-  for env_var in $(env)
-  do
-    echo "$env_var"
-  done
 
   # remove current backups for dev stage
   rm -rf "$HOST_ENV"
