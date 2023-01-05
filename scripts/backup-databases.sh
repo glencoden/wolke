@@ -6,6 +6,19 @@ if test -e .env; then
   export $(grep -v '^#' .env | xargs)
 fi
 
+pwd
+
+if test -e .env; then
+  echo ".env file found"
+else
+  echo ".env file not found"
+fi
+
+for env_var in $(env)
+do
+  echo "$env_var"
+done
+
 # create an empty array
 db_names=()
 
@@ -19,7 +32,7 @@ done
 # make temporary backup directory
 mkdir temp-pg-backups
 (
-  cd temp-pg-backups
+  cd temp-pg-backups || exit
 
   # clone remote backup remote
   git clone git@github.com:glencoden/wolke-db-backups.git .
