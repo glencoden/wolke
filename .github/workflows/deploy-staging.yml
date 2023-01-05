@@ -32,6 +32,6 @@ jobs:
       - name: init and remove databases as listed in .env
         run: |
           ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
-          which xargs
-          bash /root/apps/wolke/scripts/init-databases.sh
+          cd /root/apps/wolke
+          bash scripts/init-databases.sh
           ENDSSH

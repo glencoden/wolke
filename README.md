@@ -2,7 +2,15 @@
 
 ### databases
 
+LOCAL
 npm run db:restore db=name env=develop commit=05657560fa3dd55c2c528b5134f6358bca3dc693
+
+SERVER
+cd to project root!
+
+INIT
+BACKUP bash scripts/backup-databases.sh
+RESTORE bash scripts/restore-databases.sh db=name env=develop commit=05657560fa3dd55c2c528b5134f6358bca3dc693
 
 # New projects
 
