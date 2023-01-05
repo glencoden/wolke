@@ -20,7 +20,8 @@ jobs:
           cd /root/apps/wolke
           git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
           echo "${{ secrets.ENV_FILE }}" > .env
-          cat "${{ secrets.ENV_FILE_STAGING }}" >> .env
+          echo "${{ secrets.ENV_FILE_STAGING }}" > .env.staging
+          cat .env.staging >> .env
           docker compose down --rmi local
           docker image prune -f
           docker compose up -d --build
