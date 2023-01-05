@@ -26,9 +26,6 @@ jobs:
           docker image prune -f
           docker compose up -d --build
           ENDSSH
-      - name: Sleep for 10 seconds
-        run: sleep 10s
-        shell: bash
       - name: init and remove databases as listed in .env
         run: |
           ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
