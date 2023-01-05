@@ -14,7 +14,7 @@ services:
       context: contexts/tsc
     restart: always
     volumes:
-      - ${STATIC_DIR}/tsc/build:/usr/src/app/static
+      - ${STATIC_DIR}/tsc/${BUILD_DIR}:/usr/src/app/static
     environment:
       NODE_ENV: production
       VIRTUAL_HOST: ${HOST_TSC}
