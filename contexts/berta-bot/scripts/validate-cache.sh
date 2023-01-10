@@ -9,12 +9,7 @@ commit_hash=$(echo "$parsed_response" | cut -d' ' -f1)
 git_exit_status=$?
 
 if [ $git_exit_status -eq 0 ]; then
-  sed -i "" -e "5s/.*/ARG COMMIT_HASH=$commit_hash/" contexts/tsc/Dockerfile
+  sed -i "" -e "5s/.*/ARG COMMIT_HASH=$commit_hash/" contexts/berta-bot/Dockerfile
 else
   echo "git command failed"
 fi
-
-# if the commit hash is no option, you can invalidate docker cache every run with a timestamp:
-
-# cache_time=$(date +%s)
-# sed -i "" -e "6s/.*/ARG CACHE_TIME=$cache_time/" contexts/tsc/Dockerfile
