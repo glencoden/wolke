@@ -1,5 +1,5 @@
 # fetch remote commit info
-git_response=$(git ls-remote https://github.com/glencoden/tsc-api.git | egrep 'main|merge')
+git_response=$(git ls-remote https://github.com/glencoden/berta-bot.git | egrep 'main|merge')
 
 # parse for commit hash
 parsed_response=$(echo "$git_response" | tr '\t' ' ')

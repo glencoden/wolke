@@ -7,6 +7,7 @@ volumes:
   vhost:
   html:
   acme:
+  berta:
 
 services:
   tsc:
@@ -25,10 +26,23 @@ services:
       DB_HOST: db
       ADMIN_USERNAME: ${ADMIN_USERNAME}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-      REMOTE_BRANCH: ${BRANCH_TSC_API}
     ports:
       - "3200:5555"
     container_name: tsc
+
+  berta-bot:
+    build:
+      context: contexts/berta-bot
+    restart: always
+    volumes:
+      - berta:/usr/src/app/files
+    environment:
+      BERTA_YOUTUBE_API_KEY: "${BERTA_YOUTUBE_API_KEY}"
+      VIRTUAL_HOST: "${HOST_BERTA_BOT}"
+      LETSENCRYPT_HOST: "${HOST_BERTA_BOT}"
+    ports:
+      - "3300:5555"
+    container_name: berta-bot
 
   db:
     image: postgres:14.2-alpine
