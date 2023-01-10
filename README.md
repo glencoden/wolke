@@ -95,7 +95,7 @@ HOST_ENV=prod
 # Hosts
 HOST_MY_PROJECT=myproject.glencoden.io
 ```
-7. Add secrets to your github repo at `Settings > Secrets and variables > Actions > New repository secret`:
+7. Add secrets to your github repo at `Settings > Secrets and variables > Actions`:
    <br/>
    `ENV_LIVE` - copy contents of `.env.live` file
    <br/>
@@ -118,19 +118,20 @@ Your github pipeline will deploy your docker cloud to your server every time you
 
 ### Optional staging cloud
 
-You can setup a copy of the project on a second server and deploy it from branch `staging`.
+You can setup a copy of the project on a second server and deploy it from branch `staging`
 
 1. Simply go through the setup steps above with another server
 2. Add an `.env.staging` file at project root, with `HOST_ENV=staging` and the staging hosts for your projects, eg `staging.myproject.glencoden.io`
-3. Add secrets to your github repo at `Settings > Secrets and variables > Actions > New repository secret`:
+3. Add secrets to your github repo at `Settings > Secrets and variables > Actions`:
    <br/>
    `ENV_STAGING` - copy contents of `.env.staging` file
    <br/>
    `SERVER_ADDRESS_STAGING` - your staging server IP
+   <br/>
 
 # ☁️ Databases
 
-⚠️ Execute scripts form project root
+⚠️ Execute scripts from project root
 
 ## Add backup git repository
 
@@ -161,22 +162,23 @@ Locally, `npm run db:backup` will create dump files for existing postgres databa
 `env=develop` - the host environment `develop` | `staging` | `prod` you wish to retrieve the backup from (DEFAULT restores from the host env you are currently in)
 <br/>
 `commit=05654560fg3dd55c2c528b5134f6358bca3dc693` - the commit hash of the backup you wish to restore (DEFAULT restores most recent commit)
+<br/>
 
 # ☁️ Deploy a project
 
 ## Backend
 
-TODO
+⚠️ Example for node express app with typescript
+
+Example Dockerfile `contexts/tsc/Dockerfile`
+<br/>
+Example cache validation script `contexts/tsc/script/validate-cache.sh`
+<br/>
+If you wish to use docker cache validation, see that the `sed` command in your script writes to the correct line and add the path to the script to npm script `cache:validate`
 
 ## Frontend
 
-### In combination with a backend project
-
-TODO
-
-### Static deploy
-
-In your project-to-deploy remote github repository, add secrets at `Settings > Secrets and variables > Actions > New repository secret`:
+In your project-to-deploy remote github repository, add secrets at `Settings > Secrets and variables > Actions`:
 
 `SERVER_ADDRESS` - IP address of target server
 <br/>
@@ -184,7 +186,7 @@ In your project-to-deploy remote github repository, add secrets at `Settings > S
 
 ⚠️ Example for app `tsc`
 
-In your project-to-deploy, add a github workflow at `.github/workflows/deploy-to-wolke.yml`.
+In your project-to-deploy, add a github workflow at `.github/workflows/deploy-to-wolke.yml`
 
 ```yaml
 on:
@@ -221,7 +223,6 @@ jobs:
           cd build/
           scp -r * root@${{ secrets.SERVER_ADDRESS }}:/root/apps/tsc/
 ```
-<br/>
 
 In your wolke project add your project-to-deploy host to `.env` | `.env.staging` | `.env.prod`
 
@@ -229,6 +230,8 @@ In your wolke project add your project-to-deploy host to `.env` | `.env.staging`
 # Hosts
 HOST_TSC=tsc.glencoden.io
 ```
+
+### Static deploy
 
 Add a Dockerfile at `contexts/my-app/Dockerfile`
 
@@ -266,7 +269,8 @@ services:
 ```
 <br/>
 
-Restart the docker cloud locally or merge into the live branches. Provide the static build with your build command locally or by merging into `main` for live deploy.
+Restart the docker cloud locally or merge into the live branches. Provide the static build with your build command locally or by merging into `main` for live deploy. Done!
+<br/>
 
 # ☁️ Cron
 
