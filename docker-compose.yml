@@ -37,9 +37,10 @@ services:
     volumes:
       - berta:/usr/src/app/files
     environment:
-      BERTA_YOUTUBE_API_KEY: "${BERTA_YOUTUBE_API_KEY}"
-      VIRTUAL_HOST: "${HOST_BERTA_BOT}"
-      LETSENCRYPT_HOST: "${HOST_BERTA_BOT}"
+      HOST_ENV: ${HOST_ENV}
+      BERTA_YOUTUBE_API_KEY: ${BERTA_YOUTUBE_API_KEY}
+      VIRTUAL_HOST: ${HOST_BERTA_BOT}
+      LETSENCRYPT_HOST: ${HOST_BERTA_BOT}
     ports:
       - "3300:5555"
     container_name: berta-bot

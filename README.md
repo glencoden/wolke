@@ -166,13 +166,19 @@ Locally, `npm run db:backup` will create dump files for existing postgres databa
 
 # ☁️ Deploy a project
 
+## Host environment
+
+Any project started from a wolke context can be given access to the `HOST_ENV` variable, which values are `develop` | `staging` | `prod`
+<br/>
+In the related docker compose service add `HOST_ENV: ${HOST_ENV}` to the `environment` list
+
 ## Backend
 
 ⚠️ Example for node express app with typescript
 
 Example Dockerfile `contexts/tsc/Dockerfile`
 <br/>
-Example cache validation script `contexts/tsc/script/validate-cache.sh`
+Example cache validation script `contexts/tsc/script/validate-cache.sh` - This will make changes to a committed Dockerfile
 <br/>
 If you wish to use docker cache validation, see that the `sed` command in your script writes to the correct line and add the path to the script to npm script `cache:validate`
 
