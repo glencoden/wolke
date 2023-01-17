@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  deploy-staging:
+  deploy-prod:
     runs-on: ubuntu-latest
     steps:
       - name: copy ssh key
@@ -19,7 +19,16 @@ jobs:
           mkdir -p /root/apps/wolke
           cd /root/apps/wolke
           git pull || git clone -b main --single-branch git@github.com:glencoden/wolke.git ./
+          echo "${{ secrets.ENV_LIVE }}" > .env
+          echo "${{ secrets.ENV_PROD }}" > .env.prod
+          cat .env.prod >> .env
           docker compose down --rmi local
           docker image prune -f
           docker compose up -d --build
+          ENDSSH
+      - name: init and remove databases as listed in .env
+        run: |
+          ssh root@${{ secrets.SERVER_ADDRESS_PROD }} <<"ENDSSH"
+          cd /root/apps/wolke
+          bash scripts/init-databases.sh
           ENDSSH

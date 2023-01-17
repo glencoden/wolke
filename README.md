@@ -148,7 +148,7 @@ Locally, run `npm run db:init` when all docker containers are running to match t
 
 ## Backup
 
-TODO Cron job running `scripts/backup-databases.sh` from project root
+ssh into your server, run `crontab -e` and add the crontab line `30 0 * * * cd /root/apps/wolke && bash scripts/backup-databases.sh` to create a backup every day at 00:30h
 <br/>
 <br/>
 Locally, `npm run db:backup` will create dump files for existing postgres databases and push them to your backup remote
@@ -276,8 +276,3 @@ services:
 <br/>
 
 Restart the docker cloud locally or merge into the live branches. Provide the static build with your build command locally or by merging into `main` for live deploy. Done!
-<br/>
-
-# ☁️ Cron
-
-TODO
