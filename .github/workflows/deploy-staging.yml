@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: copy ssh key
+        run: |
+          mkdir -p ~/.ssh
+          echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+      - name: pull wolke repository and run docker
+        run: |
+          ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
+          mkdir -p /root/apps/wolke
+          cd /root/apps/wolke
+          git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
+          echo "${{ secrets.ENV_LIVE }}" > .env
+          echo "${{ secrets.ENV_STAGING }}" > .env.staging
+          cat .env.staging >> .env
+          docker compose down --rmi local
+          docker image prune -f
+          docker compose up -d --build
+          ENDSSH
+      - name: init and remove databases as listed in .env
+        run: |
+          ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
+          cd /root/apps/wolke
+          bash scripts/init-databases.sh
+          ENDSSH
