@@ -45,6 +45,19 @@ services:
       - "3300:5555"
     container_name: berta-bot
 
+  looney-tool:
+    build:
+      context: contexts/looney-tool
+    volumes:
+      - ${STATIC_DIR}/looney-tool/client:/usr/src/app
+    environment:
+      NODE_ENV: production
+      VIRTUAL_HOST: "${HOST_LOONEY_TOOL}"
+      LETSENCRYPT_HOST: "${HOST_LOONEY_TOOL}"
+    ports:
+      - "3400:3000"
+    container_name: looney-tool
+
   db:
     image: postgres:14.2-alpine
     container_name: postgres-database
