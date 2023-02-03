@@ -45,6 +45,24 @@ services:
       - "3300:5555"
     container_name: berta-bot
 
+  looney-api:
+    build:
+      context: contexts/looney-api
+    restart: always
+    environment:
+      VIRTUAL_HOST: ${HOST_LOONEY_API}
+      LETSENCRYPT_HOST: ${HOST_LOONEY_API}
+      REPERTOIRE_DB_NAME: ${POSTGRES_DATABASE_LOONEY_REPERTOIRE}
+      AUTH_DB_NAME: ${POSTGRES_DATABASE_LOONEY_API_AUTH}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_HOST: db
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    ports:
+      - "3400:5555"
+    container_name: looney-api
+
   looney-tool:
     build:
       context: contexts/looney-tool
@@ -55,7 +73,7 @@ services:
       VIRTUAL_HOST: "${HOST_LOONEY_TOOL}"
       LETSENCRYPT_HOST: "${HOST_LOONEY_TOOL}"
     ports:
-      - "3400:3000"
+      - "3500:3000"
     container_name: looney-tool
 
   db:
