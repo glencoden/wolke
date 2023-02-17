@@ -51,6 +51,7 @@ services:
     restart: always
     environment:
       VIRTUAL_HOST: ${HOST_LOONEY_API}
+      VIRTUAL_PORT: 5555
       LETSENCRYPT_HOST: ${HOST_LOONEY_API}
       REPERTOIRE_DB_NAME: ${POSTGRES_DATABASE_LOONEY_REPERTOIRE}
       AUTH_DB_NAME: ${POSTGRES_DATABASE_LOONEY_API_AUTH}
@@ -60,7 +61,8 @@ services:
       ADMIN_USERNAME: ${ADMIN_USERNAME}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     ports:
-      - "3400:5555"
+      - "5555:5555"
+      - "5555:5555/udp"
     container_name: looney-api
 
   looney-tool:
