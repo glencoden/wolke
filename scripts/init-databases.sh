@@ -6,14 +6,7 @@ set -e
 # check if the .env file exists
 if test -e .env; then
   # export the environment variables from the .env file
-  while read -r line; do
-    if [[ "$line" =~ ^# || -z "$line" ]]; then
-      continue # skip comments and empty lines
-    fi
-    var_name=$(echo "$line" | cut -d= -f1)
-    var_value=$(echo "$line" | cut -d= -f2-)
-    export "$var_name"="$var_value"
-  done < .env
+  export $(grep -v '^#' .env | xargs)
 fi
 
 # create an empty array
