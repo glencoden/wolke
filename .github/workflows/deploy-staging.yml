@@ -19,7 +19,7 @@ jobs:
           mkdir -p /root/apps/wolke
           cd /root/apps/wolke
           git pull || git clone -b staging --single-branch git@github.com:glencoden/wolke.git ./
-          echo "${{ secrets.ENV_LIVE }}" > .env
+          echo "${{ secrets.ENV_LIVE }}" | base64 --decode > .env
           echo "${{ secrets.ENV_STAGING }}" > .env.staging
           cat .env.staging >> .env
           docker compose down --rmi local
