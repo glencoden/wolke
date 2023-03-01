@@ -4,6 +4,8 @@ FROM node:16
 # This is set to disable caching after this line when there are new commits (./scripts/validate-cache.sh)
 ARG COMMIT_HASH=a23ce98236ab71af533a2adbbd966db6e3f77648
 
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 WORKDIR /usr/src/app
 
 RUN git clone -b main --single-branch https://github.com/glencoden/looney-api.git .
