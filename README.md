@@ -62,7 +62,8 @@ git config --global user.name "glen coden"
 ssh-keygen -t rsa -b 4096 -C my-server-name
 ```
 5. Add public key to your github general setup ssh keys
-6. Add `.env.live` and `.env.prod` files at project root (they are just templates to copy to github!):
+6. Add `.env.live` and `.env.prod` files at project root (they are just templates to copy to github!)<br/>
+⚠️ Github action secrets don't recognize new lines, so base64 encode all values containing a "\n"
 ```dotenv
 # .env.live
 # Environment vars shared by all live deploys of this cloud
@@ -196,38 +197,38 @@ In your project-to-deploy, add a github workflow at `.github/workflows/deploy-to
 
 ```yaml
 on:
-  push:
-    branches:
-      - main
+   push:
+      branches:
+         - main
 
 jobs:
-  deploy-to-wolke:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out repository
-        uses: actions/checkout@v2
-      - name: install node
-        uses: actions/setup-node@v2
-      - name: install dependencies
-        run: yarn install
-      - name: build app
-        run: yarn build
-      - name: copy ssh key
-        run: |
-          mkdir -p ~/.ssh
-          echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-      - name: clear server directory
-        run: |
-          ssh root@${{ secrets.SERVER_ADDRESS }} <<"ENDSSH"
-          rm -rf /root/apps/tsc/*
-          mkdir -p /root/apps/tsc/
-          ENDSSH
-      - name: deploy build
-        run: |
-          cd build/
-          scp -r * root@${{ secrets.SERVER_ADDRESS }}:/root/apps/tsc/
+   deploy-to-wolke-prod:
+      runs-on: ubuntu-latest
+      steps:
+         - name: check out repository
+           uses: actions/checkout@v2
+         - name: install node
+           uses: actions/setup-node@v2
+         - name: install dependencies
+           run: yarn install
+         - name: build app
+           run: yarn build:prod
+         - name: copy ssh key
+           run: |
+              mkdir -p ~/.ssh
+              echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+              chmod 600 ~/.ssh/id_rsa
+              echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+         - name: clear server directory
+           run: |
+              ssh root@${{ secrets.SERVER_ADDRESS_PROD }} <<"ENDSSH"
+              mkdir -p /root/apps/tsc/build
+              rm -rf /root/apps/tsc/build/*
+              ENDSSH
+         - name: deploy build
+           run: |
+              cd build/
+              scp -r * root@${{ secrets.SERVER_ADDRESS_PROD }}:/root/apps/tsc/build
 ```
 
 In your wolke project add your project-to-deploy host to `.env` | `.env.staging` | `.env.prod`
@@ -263,7 +264,7 @@ services:
     build:
       context: contexts/tsc
     volumes:
-      - ${STATIC_DIR}/tsc/${BUILD_DIR}:/usr/src/app
+      - ${STATIC_DIR}/tsc/build:/usr/src/app
     environment:
       NODE_ENV: production
       VIRTUAL_HOST: "${HOST_TSC}"

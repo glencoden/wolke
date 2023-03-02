@@ -45,6 +45,44 @@ services:
       - "3300:5555"
     container_name: berta-bot
 
+  looney-api:
+    build:
+      context: contexts/looney-api
+    restart: always
+    environment:
+      VIRTUAL_HOST: ${HOST_LOONEY_API}
+      VIRTUAL_PORT: 5555
+      LETSENCRYPT_HOST: ${HOST_LOONEY_API}
+      REPERTOIRE_DB_NAME: ${POSTGRES_DATABASE_LOONEY_REPERTOIRE}
+      AUTH_DB_NAME: ${POSTGRES_DATABASE_LOONEY_API_AUTH}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_HOST: db
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      CALENDAR_SCOPES: ${CALENDAR_SCOPES}
+      GLEN_CALENDAR_PROJECT_NUMBER: ${GLEN_CALENDAR_PROJECT_NUMBER}
+      GOOGLE_CALENDAR_ID: ${GOOGLE_CALENDAR_ID}
+      GOOGLE_PRIVATE_KEY_BASE64: ${GOOGLE_PRIVATE_KEY_BASE64}
+      GOOGLE_CLIENT_EMAIL: ${GOOGLE_CLIENT_EMAIL}
+    ports:
+      - "5555:5555"
+      - "5555:5555/udp"
+    container_name: looney-api
+
+  looney-tool:
+    build:
+      context: contexts/looney-tool
+    volumes:
+      - ${STATIC_DIR}/looney-tool/client:/usr/src/app
+    environment:
+      NODE_ENV: production
+      VIRTUAL_HOST: "${HOST_LOONEY_TOOL}"
+      LETSENCRYPT_HOST: "${HOST_LOONEY_TOOL}"
+    ports:
+      - "3500:3000"
+    container_name: looney-tool
+
   db:
     image: postgres:14.2-alpine
     container_name: postgres-database
