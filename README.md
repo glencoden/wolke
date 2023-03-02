@@ -62,7 +62,8 @@ git config --global user.name "glen coden"
 ssh-keygen -t rsa -b 4096 -C my-server-name
 ```
 5. Add public key to your github general setup ssh keys
-6. Add `.env.live` and `.env.prod` files at project root (they are just templates to copy to github!):
+6. Add `.env.live` and `.env.prod` files at project root (they are just templates to copy to github!)<br/>
+⚠️ Github action secrets don't recognize new lines, so base64 encode all values containing a "\n"
 ```dotenv
 # .env.live
 # Environment vars shared by all live deploys of this cloud
