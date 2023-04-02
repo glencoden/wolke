@@ -1,0 +1,9 @@
+GET https://api.looneytunez.de/calendar/events
+Accept: application/json
+
+###
+
+GET https://api.looneytunez.de/repertoire/backup
+Accept: application/json
+
+###

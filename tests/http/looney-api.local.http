@@ -1,0 +1,9 @@
+GET http://looneyapi.lan/calendar/events
+Accept: application/json
+
+###
+
+GET http://looneyapi.lan/repertoire/backup
+Accept: application/json
+
+###
