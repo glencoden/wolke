@@ -1,0 +1,14 @@
+GET http://tsc.lan
+Accept: application/json
+
+###
+
+GET http://tsc.lan/api/events
+Accept: application/json
+
+###
+
+GET http://tsc.lan/api/competitors
+Accept: application/json
+
+###

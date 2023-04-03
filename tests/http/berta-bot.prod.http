@@ -1,0 +1,9 @@
+GET https://bertabot.glencoden.io?resource=video
+Accept: application/json
+
+###
+
+GET https://bertabot.glencoden.io?resource=playlist
+Accept: application/json
+
+###

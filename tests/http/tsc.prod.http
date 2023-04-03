@@ -1,0 +1,14 @@
+GET https://tsc.glencoden.io
+Accept: application/json
+
+###
+
+GET https://tsc.glencoden.io/api/events
+Accept: application/json
+
+###
+
+GET https://tsc.glencoden.io/api/competitors
+Accept: application/json
+
+###
