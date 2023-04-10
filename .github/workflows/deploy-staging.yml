@@ -23,8 +23,8 @@ jobs:
           echo "${{ secrets.ENV_STAGING }}" > .env.staging
           cat .env.staging >> .env
           docker compose down --rmi local
-          docker image prune -f
           docker compose up -d --build
+          docker system prune -f
           ENDSSH
       - name: init and remove databases as listed in .env
         run: |
