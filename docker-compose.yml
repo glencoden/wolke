@@ -83,6 +83,19 @@ services:
       - "3500:3000"
     container_name: looney-tool
 
+  looney-website:
+    build:
+      context: contexts/looney-website
+    volumes:
+      - ${STATIC_DIR}/looney-website/build:/usr/src/app
+    environment:
+      NODE_ENV: production
+      VIRTUAL_HOST: "${HOST_LOONEY_WEBSITE}"
+      LETSENCRYPT_HOST: "${HOST_LOONEY_WEBSITE}"
+    ports:
+      - "3600:3000"
+    container_name: looney-website
+
   db:
     image: postgres:14.2-alpine
     container_name: postgres-database

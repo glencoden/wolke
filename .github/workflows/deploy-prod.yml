@@ -23,8 +23,8 @@ jobs:
           echo "${{ secrets.ENV_PROD }}" > .env.prod
           cat .env.prod >> .env
           docker compose down --rmi local
-          docker image prune -f
           docker compose up -d --build
+          docker system prune -f
           ENDSSH
       - name: init and remove databases as listed in .env
         run: |
