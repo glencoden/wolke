@@ -6,9 +6,9 @@
         "start": "npm run cache:validate && docker compose up -d --build && docker system prune -f",
         "stop": "docker compose down --rmi local",
         "restart": "npm stop && npm start",
-        "db:init": "bash scripts/init-databases.sh",
-        "db:backup": "bash scripts/backup-databases.sh",
-        "db:restore": "bash scripts/restore-databases.sh",
+        "db:init": "bash scripts/init-database.sh",
+        "db:backup": "bash scripts/backup-database.sh",
+        "db:restore": "bash scripts/restore-database.sh",
         "cache:validate": "bash contexts/tsc/scripts/validate-cache.sh && bash contexts/berta-bot/scripts/validate-cache.sh && bash contexts/looney-api/scripts/validate-cache.sh"
     },
     "repository": {
