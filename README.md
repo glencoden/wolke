@@ -50,7 +50,7 @@ HOST_MY_PROJECT=myproject.lan
 
 ### Setup
 
-1. Find a server with a linux distro
+1. Start a server with a linux distro
 2. Install docker and git
 3. Configure git:
 ```shell
@@ -136,27 +136,27 @@ You can setup a copy of the project on a second server and deploy it from branch
 
 ## Add backup git repository
 
-To backup and restore databases, initiate a private github repository and in `scripts/backup-databases.sh` and `scripts/restore-databases.sh` replace the lines starting with `git clone git@github.com` with your backup repo url
+To backup and restore the database, initiate a private github repository and in `scripts/backup-database.sh` and `scripts/restore-database.sh` replace the lines starting with `git clone git@github.com` with your backup repo url
 
 ## Init and update 
 
 Databases are added and removed automatically when deploying live to `prod` or `staging`
 <br/>
-The pipeline runs `scripts/init-databases.sh` to match the list of existing postgres databases with every entry in `.env.live` starting with `POSTGRES_DATABASE_`
+The pipeline runs `scripts/init-database.sh` to match the list of existing postgres databases with every entry in `.env.live` starting with `POSTGRES_DATABASE_`
 <br/>
 <br/>
 Locally, run `npm run db:init` when all docker containers are running to match the list of existing postgres databases with every entry in `.env` staring with `POSTGRES_DATABASE_`
 
 ## Backup
 
-ssh into your server, run `crontab -e` and add the crontab line `30 0 * * * cd /root/apps/wolke && bash scripts/backup-databases.sh` to create a backup every day at 00:30h
+ssh into your server, run `crontab -e` and add the crontab line `30 0 * * * cd /root/apps/wolke && bash scripts/backup-database.sh` to create a backup every day at 00:30h
 <br/>
 <br/>
 Locally, `npm run db:backup` will create dump files for existing postgres databases and push them to your backup remote
 
 ## Restore
 
-`npm run db:restore` or `bash scripts/restore-databases` with optional command line args:
+`npm run db:restore` or `bash scripts/restore-database.sh` with optional command line args:
 
 `db=name` - the name of the database you wish to restore (DEFAULT restores every database)
 <br/>

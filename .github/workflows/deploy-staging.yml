@@ -23,12 +23,12 @@ jobs:
           echo "${{ secrets.ENV_STAGING }}" > .env.staging
           cat .env.staging >> .env
           docker compose down --rmi local
-          docker image prune -f
           docker compose up -d --build
+          docker system prune -f
           ENDSSH
-      - name: init and remove databases as listed in .env
+      - name: init and remove database as listed in .env
         run: |
           ssh root@${{ secrets.SERVER_ADDRESS_STAGING }} <<"ENDSSH"
           cd /root/apps/wolke
-          bash scripts/init-databases.sh
+          bash scripts/init-database.sh
           ENDSSH
