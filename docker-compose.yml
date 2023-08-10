@@ -10,6 +10,18 @@ volumes:
   berta:
 
 services:
+  mailer:
+    build:
+      context: contexts/mailer
+    restart: always
+    environment:
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      VIRTUAL_HOST: ${HOST_MAILER}
+      LETSENCRYPT_HOST: ${HOST_MAILER}
+    ports:
+      - "3100:5555"
+    container_name: mailer
+
   tsc:
     build:
       context: contexts/tsc
