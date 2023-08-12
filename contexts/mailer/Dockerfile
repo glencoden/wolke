@@ -2,11 +2,11 @@
 FROM node:16
 
 # This is set to disable caching after this line when there are new commits (./scripts/validate-cache.sh)
-ARG COMMIT_HASH=ef64664f0c71cce1a9889ce07dc63d0a99a29162
+ARG COMMIT_HASH=76cfa813499dcd047cb2422d4c70c1febf8cec7f
 
 WORKDIR /usr/src/app
 
-RUN git clone -b main --single-branch https://github.com/glencoden/berta-bot.git .
+RUN git clone -b main --single-branch https://github.com/glencoden/mailer.git .
 RUN npm install
 
 EXPOSE 5555
