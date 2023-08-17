@@ -1,0 +1,12 @@
+POST https://staging.mailer.glencoden.io
+Content-Type: application/json
+
+// page: "hainarbeit | looneys" | "" for testing
+{
+    "name": "glen coden",
+    "email": "info@simonmeyer.de",
+    "content": "glen was here",
+    "page": ""
+}
+
+###
