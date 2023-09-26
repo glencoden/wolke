@@ -6,7 +6,8 @@ Content-Type: application/json
     "name": "glen coden",
     "email": "info@simonmeyer.de",
     "content": "glen was here",
-    "page": ""
+    "page": "",
+    "admin_password": ""
 }
 
 ###
