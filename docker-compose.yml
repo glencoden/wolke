@@ -104,7 +104,6 @@ services:
       - ${STATIC_DIR}/looney-boss:/usr/src/app
     environment:
       NODE_ENV: production
-      VITE_HOST_ENV: ${HOST_ENV}
       VIRTUAL_HOST: "${HOST_LOONEY_BOSS}"
       LETSENCRYPT_HOST: "${HOST_LOONEY_BOSS}"
     ports:
@@ -118,7 +117,6 @@ services:
       - ${STATIC_DIR}/looney-guest:/usr/src/app
     environment:
       NODE_ENV: production
-      VITE_HOST_ENV: ${HOST_ENV}
       VIRTUAL_HOST: "${HOST_LOONEY_GUEST}"
       LETSENCRYPT_HOST: "${HOST_LOONEY_GUEST}"
     ports:
