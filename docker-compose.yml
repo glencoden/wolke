@@ -108,7 +108,7 @@ services:
       VIRTUAL_HOST: "${HOST_LOONEY_BOSS}"
       LETSENCRYPT_HOST: "${HOST_LOONEY_BOSS}"
     ports:
-      - "3600:3000"
+      - "3650:3000"
     container_name: looney-boss
 
   looney-guest:
