@@ -2,7 +2,7 @@
 FROM node:16
 
 # This is set to disable caching after this line when there are new commits (./scripts/validate-cache.sh)
-ARG COMMIT_HASH=beec1860c40375839ac44d258d0082ffc3b38680
+ARG COMMIT_HASH=47927689257a63787bc541b32ed565d28e879940
 
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
