@@ -80,7 +80,7 @@ services:
       GOOGLE_PRIVATE_KEY_BASE64: ${GOOGLE_PRIVATE_KEY_BASE64}
       GOOGLE_CLIENT_EMAIL: ${GOOGLE_CLIENT_EMAIL}
     ports:
-      - "5555:5555"
+      - "3400:5555"
     container_name: looney-api
 
   looney-tool:
