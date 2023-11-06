@@ -1,0 +1,53 @@
+POST {{host_looney_api}}/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username = glencoden &
+password = {{admin_password}} &
+grant_type = password &
+client_id = null &
+client_secret = null
+
+> {% client.global.set('access_token', response.body.access_token) %}
+
+###
+
+GET {{host_looney_api}}/live/sessions
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Data exists", function() {
+        client.assert(response.body.hasOwnProperty("data"), "Cannot find 'data' in response");
+    });
+
+    client.test("Error is null", function() {
+        client.assert(response.body.hasOwnProperty("error"), "Cannot find 'error' in response");
+        client.assert(response.body.error === null, "There is an error in the response");
+    });
+
+    client.test("Response content-type is json", function() {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+###
+
+GET {{host_looney_api}}/calendar/events
+Accept: application/json
+
+###
+
+GET {{host_looney_api}}/repertoire/backup
+Accept: application/json
+
+###
+
+GET {{host_looney_api}}/live/qr_code
+Accept: application/json
+
+###
