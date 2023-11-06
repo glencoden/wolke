@@ -1,0 +1,14 @@
+GET {{host_looney_api}}/calendar/events
+Accept: application/json
+
+###
+
+GET {{host_looney_api}}/repertoire/backup
+Accept: application/json
+
+###
+
+GET {{host_looney_api}}/live/qr_code
+Accept: application/json
+
+###
