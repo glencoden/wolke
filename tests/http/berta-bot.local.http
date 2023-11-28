@@ -1,9 +1,0 @@
-GET http://bertabot.lan?resource=video
-Accept: application/json
-
-###
-
-GET http://bertabot.lan?resource=playlist
-Accept: application/json
-
-###

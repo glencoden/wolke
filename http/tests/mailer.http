@@ -1,4 +1,4 @@
-POST http://mailer.lan
+POST {{host_mailer}}
 Content-Type: application/json
 
 // page: "hainarbeit | looneys" | "" for testing
@@ -6,7 +6,8 @@ Content-Type: application/json
     "name": "glen coden",
     "email": "info@simonmeyer.de",
     "content": "glen was here",
-    "page": ""
+    "page": "",
+    "admin_password": "{{admin_password}}"
 }
 
 ###

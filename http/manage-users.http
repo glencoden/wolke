@@ -1,0 +1,45 @@
+< {%
+    request.variables.set('username', 'meyer')
+    request.variables.set('password', '1234')
+%}
+
+POST {{host_looney_api}}/auth/register
+Content-Type: application/x-www-form-urlencoded
+
+userName = {{username}} &
+password = {{password}} &
+adminPassword = {{admin_password}} &
+grant_type = password &
+client_id = null &
+client_secret = null
+
+<> 2023-11-06T180032.200.json
+
+###
+
+POST {{host_looney_api}}/auth/get_all
+Content-Type: application/x-www-form-urlencoded
+
+adminPassword={{admin_password}}
+
+<> 2023-11-06T180110.200.json
+<> 2023-11-06T175834.200.json
+<> 2023-11-06T175814.502.html
+<> 2023-11-06T175745.502.html
+
+###
+
+< {% request.variables.set('id_to_delete', '5') %}
+
+POST {{host_looney_api}}/auth/delete
+Content-Type: application/x-www-form-urlencoded
+
+adminPassword = {{admin_password}} &
+id = {{id_to_delete}}
+
+<> 2023-11-06T180122.200.json
+<> 2023-11-06T175939.200.json
+<> 2023-11-06T175815.502.html
+<> 2023-11-06T175747.502.html
+
+###

@@ -1,9 +1,0 @@
-GET https://staging.api.looneytunez.de/calendar/events
-Accept: application/json
-
-###
-
-GET https://staging.api.looneytunez.de/repertoire/backup
-Accept: application/json
-
-###
