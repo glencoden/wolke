@@ -12,3 +12,8 @@ GET {{host_berta}}?resource=external-video
 Accept: application/json
 
 ###
+
+GET {{host_berta}}?resource=tracking
+Accept: application/json
+
+###
