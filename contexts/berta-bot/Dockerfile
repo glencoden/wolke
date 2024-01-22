@@ -2,7 +2,7 @@
 FROM node:16
 
 # This is set to disable caching after this line when there are new commits (./scripts/validate-cache.sh)
-ARG COMMIT_HASH=247ed909762006cdb87bff280aa028ce6a0ad1cf
+ARG COMMIT_HASH=2bd3a1dd023e59fc4804ecb7de250d96841e49f9
 
 WORKDIR /usr/src/app
 
