@@ -1,4 +1,4 @@
-GET {{host_looney_tool}}}
+GET {{host_looney_tool}}
 Accept: application/json
 
 ###
