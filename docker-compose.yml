@@ -30,8 +30,6 @@ services:
     volumes:
       - ${STATIC_DIR}/tsc/build:/usr/src/app/static
     environment:
-      VIRTUAL_HOST: ${HOST_TSC}
-      LETSENCRYPT_HOST: ${HOST_TSC}
       API_DB_NAME: ${POSTGRES_DATABASE_TSC}
       AUTH_DB_NAME: ${POSTGRES_DATABASE_TSC_AUTH}
       DB_USER: ${POSTGRES_USER}
@@ -39,9 +37,25 @@ services:
       DB_HOST: db
       ADMIN_USERNAME: ${ADMIN_USERNAME}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      VIRTUAL_HOST: ${HOST_TSC}
+      LETSENCRYPT_HOST: ${HOST_TSC}
     ports:
       - "3200:5555"
     container_name: tsc
+
+  cards:
+    build:
+      context: contexts/cards
+      args:
+        DATABASE_URL: ${CARDS_DATABASE_URL}
+        UUID: ${CARDS_UUID}
+    restart: always
+    environment:
+      VIRTUAL_HOST: ${HOST_CARDS}
+      LETSENCRYPT_HOST: ${HOST_CARDS}
+    ports:
+      - "3250:3000"
+    container_name: cards
 
   berta-bot:
     build:
@@ -63,9 +77,6 @@ services:
       context: contexts/looney-api
     restart: always
     environment:
-      VIRTUAL_HOST: ${HOST_LOONEY_API}
-      VIRTUAL_PORT: 5555
-      LETSENCRYPT_HOST: ${HOST_LOONEY_API}
       REPERTOIRE_DB_NAME: ${POSTGRES_DATABASE_LOONEY_REPERTOIRE}
       LIVE_DB_NAME: ${POSTGRES_DATABASE_LOONEY_LIVE}
       AUTH_DB_NAME: ${POSTGRES_DATABASE_LOONEY_API_AUTH}
@@ -79,6 +90,9 @@ services:
       GOOGLE_CALENDAR_ID: ${GOOGLE_CALENDAR_ID}
       GOOGLE_PRIVATE_KEY_BASE64: ${GOOGLE_PRIVATE_KEY_BASE64}
       GOOGLE_CLIENT_EMAIL: ${GOOGLE_CLIENT_EMAIL}
+      VIRTUAL_HOST: ${HOST_LOONEY_API}
+      VIRTUAL_PORT: 5555
+      LETSENCRYPT_HOST: ${HOST_LOONEY_API}
     ports:
       - "3400:5555"
     container_name: looney-api
