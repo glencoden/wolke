@@ -9,7 +9,7 @@
         "db:init": "bash scripts/init-database.sh",
         "db:backup": "bash scripts/backup-database.sh",
         "db:restore": "bash scripts/restore-database.sh",
-        "cache:validate": "bash contexts/mailer/scripts/validate-cache.sh && bash contexts/tsc/scripts/validate-cache.sh && bash contexts/berta-bot/scripts/validate-cache.sh && bash contexts/looney-api/scripts/validate-cache.sh"
+        "cache:validate": "bash contexts/mailer/scripts/validate-cache.sh && bash contexts/tsc/scripts/validate-cache.sh && bash contexts/cards/scripts/validate-cache.sh && bash contexts/berta-bot/scripts/validate-cache.sh && bash contexts/looney-api/scripts/validate-cache.sh"
     },
     "repository": {
         "type": "git",
