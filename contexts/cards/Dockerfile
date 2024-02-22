@@ -2,7 +2,7 @@
 FROM rust:1.76 as rustbuilder
 
 # This is set to disable caching after this line when there are new commits (./scripts/validate-cache.sh)
-ARG COMMIT_HASH=95ce4cfedd21e9e6d099ce9fa7fc0d6987da342e
+ARG COMMIT_HASH=a8b79f65b6d5f53c848530a893f1cd090945798f
 
 ARG DATABASE_URL
 ARG UUID
